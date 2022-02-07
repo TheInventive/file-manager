@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CategoryFactory extends Factory
@@ -13,8 +14,16 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        $collection = Category::all();
+        if($collection->isEmpty())
+            return [
+                'category_name' => $this->faker->domainName(),
+            ];
+
         return [
-            //
+            'category_name' => $this->faker->domainName(),
+            'parent_id' => $collection->random()->id
         ];
+        //TODO: Két kategória nem lehet egymásnak szülője és gyereke egyszerre!
     }
 }

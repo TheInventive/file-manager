@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FilesFactory extends Factory
@@ -14,7 +15,8 @@ class FilesFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'file_name' => $this->faker->title(),
+            'category_id' => Category::all()->random()->id
         ];
     }
 }

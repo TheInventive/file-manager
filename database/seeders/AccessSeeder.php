@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Access;
 use Illuminate\Database\Seeder;
 
 class AccessSeeder extends Seeder
@@ -13,6 +14,6 @@ class AccessSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Access::factory(10)->create();
     }
 }
