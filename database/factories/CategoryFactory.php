@@ -17,7 +17,7 @@ class CategoryFactory extends Factory
         $collection = Category::all();
         if($collection->isEmpty())
             return [
-                'category_name' => $this->faker->domainName(),
+                'category_name' => 'root',
             ];
 
         return [

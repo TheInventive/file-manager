@@ -11,49 +11,21 @@
     </script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <title>Document</title>
-    <script>
-        jQuery(document).ready(function(){
-            jQuery('.ajaxSubmit').click(function(e){
-                e.preventDefault();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                let urlString = '/getmsg/'+this.id;
-                jQuery.ajax({
-                    url: urlString,
-                    method: 'post',
-                    data: {
-                        name: jQuery('#name').val(),
-                        type: jQuery('#type').val(),
-                        price: jQuery('#price').val()
-                    },
-                    success: function(result){
-                        console.log(result);
-                        console.log(result.toString())
-                        let innerHtml = '';
-                        for(let i = 0; i < result.length; i++){
-                            innerHtml +=
-                                '<button type="button" class="btn-light btn-lg">'+result[i].file_name+'</button>';
-                        }
-                        document.getElementById('files').innerHTML = innerHtml;
-                    }})
-            });
-        });
-    </script>
 </head>
 <body>
-<section  style="background-color: red; height: 49vh;" id="categories">
+@extends('layouts.app')
+
+@section('content')
+    <example-component></example-component>
+@endsection
+<section  class="bg-light" style="height: 49vh;" id="categories">
     @foreach($categories as $category)
-    <button class="btn-lg btn-secondary ajaxSubmit" id="{{$category->id}}">{{$category->category_name}}</button>
+    <button class="btn-lg btn-secondary ajaxSingleClick ajaxDoubleClick" id="{{$category->id}}">{{$category->category_name}}</button>
     @endforeach
 </section>
-<section style="background-color: blue; height: 50vh;" id="files">
-    <button type="button" class="btn-light btn-lg">Item 1</button>
-    <button type="button" class="btn-light btn-lg">Item 1</button>
-    <button type="button" class="btn-light btn-lg">Item 1</button>
+<section class="bg-info" style="height: 50vh;" id="files">
+    <h1>Select category to show files</h1>
 </section>
 </body>
-<script src="{{asset('js/subcategory.js')}}"></script>
+<script src="{{asset('js/ajax.js')}}"></script>
 </html>

@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('home');
 Route::post('/getmsg/{category_id}',[WelcomeController::class, 'indexFiles']);
+Route::post('/setsubcat/{category_id}',[WelcomeController::class, 'indexSubCategories']);
+Route::post('/getsiblings/{category_id}',[WelcomeController::class, 'indexSiblings']);
 
 Route::get('/file-upload', [FileUploadController::class, 'fileUpload']);
 Route::post("/file-upload",[FileUploadController::class,'fileUploadPost'])->name('file.upload.post');
