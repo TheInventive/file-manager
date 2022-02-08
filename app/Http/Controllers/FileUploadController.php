@@ -2,24 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FileUploadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     */
-    public function fileUpload()
-    {
-        return view('fileUpload');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,15 +17,20 @@ class FileUploadController extends Controller
     public function fileUploadPost(Request $request): RedirectResponse
     {
         $request->validate([
-            'file' => 'required|mimes:pdf,xlx,csv|max:2048',
+            'file' => 'required',
         ]);
 
         $fileName = time().'.'.$request->file->extension();
 
         $request->file->move(public_path('uploads'), $fileName);
+        $fileName = $request->file->getClientOriginalName();
+        $category_id = $request->category_id;
+        DB::insert('insert into files (file_name, category_id) values (?, ?)', [$fileName, $category_id]);
+        //save filename to the database with the correct category
+
 
         return back()
-            ->with('success','You have successfully upload file.')
+            ->with('success','You have successfully uploaded the file.')
             ->with('file',$fileName);
 
     }

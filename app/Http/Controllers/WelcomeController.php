@@ -13,8 +13,14 @@ class WelcomeController extends Controller
         $categories = DB::table('categories')
             ->where('parent_id','=',1)
             ->get();
+
+        $files = DB::table('files')
+            ->where('category_id', '=',1)
+            ->get();
+
         return view('welcome',[
-            'categories' => $categories
+            'categories' => $categories,
+            'files' => $files
         ]);
     }
 

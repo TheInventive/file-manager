@@ -13,7 +13,8 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        '/getmsg',
-        '/getmsg/*'
+//        '/getmsg',
+//        '/getmsg/*',
+//        '/setsubcat/2'
     ];
 }
