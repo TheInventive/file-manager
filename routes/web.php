@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\WelcomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('home');
+Route::post('/getmsg/{category_id}',[WelcomeController::class, 'indexFiles']);
 
 Route::get('/file-upload', [FileUploadController::class, 'fileUpload']);
 Route::post("/file-upload",[FileUploadController::class,'fileUploadPost'])->name('file.upload.post');
