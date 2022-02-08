@@ -22,7 +22,7 @@
     </section>
     <section  class="bg-light" style="height: 49vh;" id="categories">
         @foreach($categories as $category)
-            <button class="btn-lg btn-secondary ajaxSingleClick ajaxDoubleClick" id="{{$category->id}}">{{$category->category_name}}</button>
+            <button class="btn-lg btn-secondary ajaxSingleClick" id="{{$category->id}}">{{$category->category_name}}</button>
         @endforeach
     </section>
     <section class="bg-info position-absolute" style=" right: 0;">
@@ -56,7 +56,7 @@
     </section>
     <section class="bg-info" style="height: 50vh;" id="files">
         @foreach($files as $file)
-            <button class="btn-lg btn-secondary" id="{{$file->id}}">{{$file->file_name}}</button>
+            <button class="btn-lg btn-warning fileDownload" id="{{$file->id}}">{{$file->file_name}}</button>
         @endforeach
     </section>
 </div>

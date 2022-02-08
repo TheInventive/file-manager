@@ -20,18 +20,37 @@ class FileUploadController extends Controller
             'file' => 'required',
         ]);
 
-        $fileName = time().'.'.$request->file->extension();
+        $name = $request->file('file')->getClientOriginalName();
 
-        $request->file->move(public_path('uploads'), $fileName);
-        $fileName = $request->file->getClientOriginalName();
-        $category_id = $request->category_id;
-        DB::insert('insert into files (file_name, category_id) values (?, ?)', [$fileName, $category_id]);
+        $request->file('file')->move('uploads', $name);
+
+        DB::insert('insert into files (file_name, category_id) values (?, ?)', [$name, $request->category_id]);
         //save filename to the database with the correct category
-
 
         return back()
             ->with('success','You have successfully uploaded the file.')
-            ->with('file',$fileName);
+            ->with('file',$name);
+    }
 
+    public function download(Request $request)
+    {
+        $file = public_path(). "/images/test.jpg";
+
+        $headers = ['Content-Type: image/jpeg'];
+
+        if (file_exists($file)) {
+            return \Response::download($file, 'plugin.jpg', $headers);
+        } else {
+            echo('File not found.');
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        if (file_exists($file)) {
+            return unlink($file);
+        } else {
+            echo('File not found.');
+        }
     }
 }
