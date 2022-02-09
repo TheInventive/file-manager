@@ -125,12 +125,11 @@
         <form action="/file-upload" method="POST" enctype="multipart/form-data">
             @csrf
         <fieldset>
-
+            <button class="btn btn-success">Upload file</button>
             <input id="secret" type="hidden" name="category_id" value="1">
             <input type="file" name="file" class="form-control d-inline">
         </fieldset>
         </form>
-            <button class="btn btn-success">Upload file</button>
         <button class="btn btn-warning">Download file</button>
         <button class="btn btn-danger">Delete file</button>
     </section>
