@@ -54,6 +54,7 @@ function getCategories(result){
             '<button id="'+result[i].id+'" type="button" class="btn btn-secondary btn-lg ajaxSingleClick">'+result[i].category_name+'</button>';
     }
     document.getElementById('secret').value = elementId;
+    document.getElementById('secret2').value = elementId;
     document.getElementById('categories').innerHTML = innerHtml;
 }
 
