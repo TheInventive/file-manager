@@ -3,6 +3,12 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
+ini_set('max_execution_time', 30000);
+ini_set('post_max_size', 30000);
+ini_set('upload_max_filesize', 30000);
+ini_set('Memory_limit', 30000);
+ini_set('Max_input_time', 30000);
+ini_set('Post_max_size', 30000);
 define('LARAVEL_START', microtime(true));
 
 /*
