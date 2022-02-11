@@ -25,6 +25,7 @@ Route::post('/getsiblings/{category_id}',[WelcomeController::class, 'indexSiblin
 Route::post("/file-upload",[FileController::class, 'fileUpload'])->name('file.upload.post');
 Route::post("/file-delete",[FileController::class, 'delete']);
 Route::post("/new-category",[CategoryController::class,'create']);
+Route::post("/delete-category",[CategoryController::class,'destroy']);
 Route::get("/file-download/{file_name}",[FileController::class, 'fileDownload'])->name('file.download.post');
 
 Auth::routes();

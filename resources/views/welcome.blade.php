@@ -12,16 +12,6 @@
     </script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <title>Document</title>
-    <script>
-        function openForm() {
-            document.getElementById("myForm").style.display = "block";
-            document.getElementById('secret2').value = document.getElementById('secret').value;
-        }
-
-        function closeForm() {
-            document.getElementById("myForm").style.display = "none";
-        }
-    </script>
     <style>
         body {font-family: Arial, Helvetica, sans-serif;}
         * {box-sizing: border-box;}
@@ -98,7 +88,7 @@
                 <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
             </form>
         </div>
-        <button class="btn btn-danger">Delete category</button>
+        <button class="btn btn-danger deleteCategory">Delete category</button>
     </section>
     <section  class="bg-light" style="height: 49vh;" id="categories">
         @foreach($categories as $category)

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Files;
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class FileController extends Controller
 {
@@ -35,7 +35,7 @@ class FileController extends Controller
             ->with('file',$name);
     }
 
-    public function fileDownload($file_name)
+    public function fileDownload($file_name): BinaryFileResponse
     {
         $headers = [
             'Content-Description' => 'File Transfer',
@@ -49,14 +49,14 @@ class FileController extends Controller
         return \Response::download(Storage::path($file_name),$file_name ,$headers);
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request): bool
     {
         $file_name = $request->file_name;
         if (file_exists(Storage::path($file_name))) {
             Files::where('file_name',$file_name)->delete();
             return unlink(Storage::path($file_name));
-        } else {
-            echo('File not found.');
         }
+
+        return false;
     }
 }

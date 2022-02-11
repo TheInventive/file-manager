@@ -16,10 +16,12 @@ $(document).on('click', '.goBack' , function(e) {
 
 let elementId;
 let nameOfFile;
+let nameOfCategory;
 
 $(document).on('click', '.ajaxSingleClick' , function(e){
     e.preventDefault();
     let urlString = '/setsubcat/'+this.id;
+    nameOfCategory = this.innerText;
     document.getElementById('secret').value = this.id;
     elementId = this.id;
     jQuery.ajax({
@@ -34,7 +36,7 @@ $(document).on('click', '.fileSelect' , function(e){
     elementId = this.id;
 });
 
-$(document).on('click', '.sendDownload',function (e){
+$(document).on('click', '.sendDownload',function (){
     if(nameOfFile != null){
         window.location="/file-download/"+nameOfFile
         nameOfFile = undefined;
@@ -63,6 +65,29 @@ $(document).on('click','.sendDelete',function (e){
     }
     else
         alert('Click file to select!');
+});
+
+$(document).on('click','.deleteCategory',function (e){
+    e.preventDefault();
+    if(nameOfCategory != null){
+        jQuery.ajax({
+            url : '/delete-category',
+            method : 'post',
+            data : {
+                'category_name' : nameOfCategory
+            },
+            success : function (){
+                alert('Category deleted successfully!');
+                location.reload();
+            },
+            fail : function (){
+                alert('Something went wrong!');
+            }
+        })
+        nameOfCategory = undefined;
+    }
+    else
+        alert('Click category to select!');
 });
 
 function getCategories(result){
@@ -109,4 +134,13 @@ function getFiles(result){
             '<button type="button" class="btn btn-warning btn-lg fileSelect" id="'+result[i].id+'">'+result[i].file_name+'</button>';
     }
     document.getElementById('files').innerHTML = innerHtml;
+}
+
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById('secret2').value = document.getElementById('secret').value;
+}
+
+function closeForm() {
+    document.getElementById("myForm").style.display = "none";
 }
