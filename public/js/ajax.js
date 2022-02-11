@@ -15,6 +15,7 @@ $(document).on('click', '.goBack' , function(e) {
 });
 
 let elementId;
+let nameOfFile;
 
 $(document).on('click', '.ajaxSingleClick' , function(e){
     e.preventDefault();
@@ -27,24 +28,41 @@ $(document).on('click', '.ajaxSingleClick' , function(e){
         success: getSiblings})
 });
 
-$(document).on('click', '.fileDownload' , function(e){
+$(document).on('click', '.fileSelect' , function(e){
     e.preventDefault();
-    let nameOfFile = this.innerText;
+    nameOfFile = this.innerText;
     elementId = this.id;
-    window.location="/file-download/"+nameOfFile
-    // jQuery.ajax({
-    //     url: urlString,
-    //     method: 'post',
-    //     data:{
-    //         'file_name': nameOfFile},
-    //     success: function (result){
-    //         console.log("Success!")
-    //         console.log(result);
-    //     }
-    // }).fail(function (data) {
-    //     console.log("Done");
-    //     console.log(data);
-    // });
+});
+
+$(document).on('click', '.sendDownload',function (e){
+    if(nameOfFile != null){
+        window.location="/file-download/"+nameOfFile
+        nameOfFile = undefined;
+    }
+    else
+        alert('Click file to select!');
+})
+
+$(document).on('click','.sendDelete',function (e){
+    e.preventDefault();
+    if(nameOfFile != null){
+        jQuery.ajax({
+            url : '/file-delete',
+            method : 'post',
+            data : {
+                'file_name' : nameOfFile
+            },
+            success : function (){
+                alert('File deleted successfully!');
+            },
+            fail : function (){
+                alert('Something went wrong!');
+            }
+        })
+        nameOfFile = undefined;
+    }
+    else
+        alert('Click file to select!');
 });
 
 function getCategories(result){
@@ -54,7 +72,6 @@ function getCategories(result){
             '<button id="'+result[i].id+'" type="button" class="btn btn-secondary btn-lg ajaxSingleClick">'+result[i].category_name+'</button>';
     }
     document.getElementById('secret').value = elementId;
-    document.getElementById('secret2').value = elementId;
     document.getElementById('categories').innerHTML = innerHtml;
 }
 
@@ -89,7 +106,7 @@ function getFiles(result){
     let innerHtml = '';
     for(let i = 0; i < result.length; i++){
         innerHtml +=
-            '<button type="button" class="btn btn-warning btn-lg fileDownload" id="'+result[i].id+'">'+result[i].file_name+'</button>';
+            '<button type="button" class="btn btn-warning btn-lg fileSelect" id="'+result[i].id+'">'+result[i].file_name+'</button>';
     }
     document.getElementById('files').innerHTML = innerHtml;
 }

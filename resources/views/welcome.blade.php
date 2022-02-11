@@ -130,12 +130,12 @@
             <input type="file" name="file" class="form-control d-inline">
         </fieldset>
         </form>
-        <button class="btn btn-warning">Download file</button>
-        <button class="btn btn-danger">Delete file</button>
+        <button class="btn btn-warning sendDownload">Download file</button>
+        <button class="btn btn-danger sendDelete">Delete file</button>
     </section>
     <section class="bg-info" style="height: 50vh;" id="files">
         @foreach($files as $file)
-            <button class="btn-lg btn-warning fileDownload" id="{{$file->id}}">{{$file->file_name}}</button>
+            <button class="btn-lg btn-warning fileSelect" id="{{$file->id}}">{{$file->file_name}}</button>
         @endforeach
     </section>
 </div>

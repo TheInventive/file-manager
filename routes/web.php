@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,9 +22,10 @@ Route::post('/getmsg/{category_id}',[WelcomeController::class, 'indexFiles']);
 Route::post('/setsubcat/{category_id}',[WelcomeController::class, 'indexSubCategories']);
 Route::post('/getsiblings/{category_id}',[WelcomeController::class, 'indexSiblings']);
 
-Route::post("/file-upload",[FileUploadController::class,'fileUploadPost'])->name('file.upload.post');
+Route::post("/file-upload",[FileController::class, 'fileUpload'])->name('file.upload.post');
+Route::post("/file-delete",[FileController::class, 'delete']);
 Route::post("/new-category",[CategoryController::class,'create']);
-Route::get("/file-download/{file_name}",[FileUploadController::class,'fileDownloadPost'])->name('file.download.post');
+Route::get("/file-download/{file_name}",[FileController::class, 'fileDownload'])->name('file.download.post');
 
 Auth::routes();
 

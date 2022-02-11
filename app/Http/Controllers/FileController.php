@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Files;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class FileUploadController extends Controller
+class FileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,7 @@ class FileUploadController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function fileUploadPost(Request $request): RedirectResponse
+    public function fileUpload(Request $request): RedirectResponse
     {
         $request->validate([
             'file' => 'required',
@@ -34,7 +35,7 @@ class FileUploadController extends Controller
             ->with('file',$name);
     }
 
-    public function fileDownloadPost($file_name)
+    public function fileDownload($file_name)
     {
         $headers = [
             'Content-Description' => 'File Transfer',
@@ -50,8 +51,10 @@ class FileUploadController extends Controller
 
     public function delete(Request $request)
     {
-        if (file_exists($file)) {
-            return unlink($file);
+        $file_name = $request->file_name;
+        if (file_exists(Storage::path($file_name))) {
+            Files::where('file_name',$file_name)->delete();
+            return unlink(Storage::path($file_name));
         } else {
             echo('File not found.');
         }
