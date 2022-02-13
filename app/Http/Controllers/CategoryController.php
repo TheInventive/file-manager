@@ -19,8 +19,9 @@ class CategoryController extends Controller
      */
     public function index(Request $request) : JsonResponse
     {
+        $id = $request->input('id');
         $subCategories = DB::table('categories')
-            ->where('parent_id','=',$request->id)
+            ->where('parent_id','=',$id)
             ->get();
         return response()->json($subCategories);
     }
@@ -51,7 +52,7 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request): bool
     {
-        $category_name = $request->category_name;
+        $category_name = $request->input('category_name');
         Category::where('category_name',$category_name)->delete();
         return true;
     }

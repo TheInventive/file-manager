@@ -4,7 +4,7 @@
     <section class="bg-info position-absolute" style=" right: 0;">
         <button class="btn btn-success open-button" onclick="openForm()">New category</button>
         <div class="form-popup" id="myForm">
-            <form action="/new-category" method="POST" enctype="multipart/form-data" class="form-container">
+            <form action="{{'/create-category'}}" method="POST" enctype="multipart/form-data" class="form-container">
                 @csrf
                 <h1>New category</h1>
 
@@ -40,7 +40,7 @@
                 </ul>
             </div>
         @endif
-        <form action="/file-upload" method="POST" enctype="multipart/form-data">
+        <form action="{{'/file-upload'}}" method="POST" enctype="multipart/form-data">
             @csrf
         <fieldset>
             <button class="btn btn-success">Upload file</button>
