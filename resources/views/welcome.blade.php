@@ -2,7 +2,9 @@
 @section('content')
 <div class="position-relative">
     <section class="bg-info position-absolute" style=" right: 0;">
+        @auth()
         <button class="btn btn-success open-button" onclick="openForm()">New category</button>
+        @endauth
         <div class="form-popup" id="myForm">
             <form action="{{'/create-category'}}" method="POST" enctype="multipart/form-data" class="form-container">
                 @csrf
@@ -16,7 +18,9 @@
                 <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
             </form>
         </div>
+            @auth()
         <button class="btn btn-danger deleteCategory">Delete category</button>
+            @endauth
     </section>
     <section  class="bg-light" style="height: 49vh;" id="categories">
         @foreach($categories as $category)
@@ -32,7 +36,7 @@
         @endif
         @if (count($errors) > 0)
             <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.
+                There were some problems with your input.
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -42,14 +46,20 @@
         @endif
         <form action="{{'/file-upload'}}" method="POST" enctype="multipart/form-data">
             @csrf
+            @auth()
         <fieldset>
             <button class="btn btn-success">Upload file</button>
             <input id="secret" type="hidden" name="category_id" value="1">
             <input type="file" name="file" class="form-control d-inline">
         </fieldset>
+            @endauth
         </form>
+            @auth()
         <button class="btn btn-warning sendDownload">Download file</button>
+            @endauth
+            @auth()
         <button class="btn btn-danger sendDelete">Delete file</button>
+            @endauth
     </section>
     <section class="bg-info" style="height: 50vh;" id="files">
         @foreach($files as $file)
