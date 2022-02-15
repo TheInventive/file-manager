@@ -21,6 +21,8 @@ $(document).on('click', '.goBack' , function(e) {
 });
 
 $(document).on('click', '.ajaxSingleClick' , function(e){
+    let element = document.getElementById('secret');
+    if (element == null) return;
     e.preventDefault();
     //Setting globals
     nameOfCategory = this.innerText;

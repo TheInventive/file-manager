@@ -20,16 +20,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index']);
 
 
-Route::post('/get-sub-categories/',[CategoryController::class, 'index']);
+Route::post('/get-sub-categories/',[CategoryController::class, 'index'])->middleware('auth');;
 
-Route::post('/get-files-by-category/',[FileController::class, 'index']);
-Route::post('/get-files-by-sibling/',[FileController::class, 'indexBySibling']);
-Route::post("/file-upload",[FileController::class, 'store']);
-Route::get("/file-download/{file_name}",[FileController::class, 'download']);
-Route::post("/file-delete",[FileController::class, 'destroy']);
+Route::post('/get-files-by-category/',[FileController::class, 'index'])->middleware('auth');;
+Route::post('/get-files-by-sibling/',[FileController::class, 'indexBySibling'])->middleware('auth');;
+Route::post("/file-upload",[FileController::class, 'store'])->middleware('auth');;
+Route::get("/file-download/{file_name}",[FileController::class, 'download'])->middleware('auth');;
+Route::post("/file-delete",[FileController::class, 'destroy'])->middleware('auth');;
 
-Route::post("/create-category",[CategoryController::class,'store']);
-Route::post("/delete-category",[CategoryController::class,'destroy']);
+Route::post("/create-category",[CategoryController::class,'store'])->middleware('auth');;
+Route::post("/delete-category",[CategoryController::class,'destroy'])->middleware('auth');;
 
 
 Auth::routes();
